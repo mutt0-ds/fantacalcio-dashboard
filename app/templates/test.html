@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
+    <link rel="stylesheet" href="https://cdn.statically.io/gh/francescorosi27/twemoji-2wesome/master/dist/twemoji-awesome.min.css" /> 
+</head><body> 
+<div align="middle">
+    <h1 class='main-title'><i class="twa twa-sparkles"></i> Dash<i class="twa twa-b twa-spin"></i>oard Squadra Fanta <i class="twa twa-sparkles"></i></h1>
+    <!-- tabella players -->
+    <table>
+        <tr>
+            {% for col in column_names %}
+            <th>{{col}}</th>
+            {% endfor %}
+        </tr>
+        {% for row in row_data %}
+        <tr>
+            {% for col, row_ in zip(column_names, row) %}
+         
+            {% if col == link_column %}
+            <td>
+            <a href={{ row_ }}>
+                <button  class="pushable">
+                    <span class="shadow"></span>
+                    <span class="edge"></span>
+                    <span class="front">
+                      Scheda Giocatore
+                    </span>
+                </button>
+            </a>
+            </td>
+            
+            <!-- nel caso delle news devo poter andare a capo col <br>, lo disattivo temporaneamente -->
+            {% elif col == news %}
+            {% autoescape false %}
+            <td>{{row_ }}</td>    
+            {% endautoescape %}
+            
+            {% else %}
+            <td>{{row_}}</td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    
+    </table>
+  
+  </div>
+  </body>
+</html>
