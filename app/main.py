@@ -14,18 +14,18 @@ app = Flask(__name__)
 #     # testo+="<br>".join(list(players.keys()))
 #     return jsonify(players)
 
-# @app.route('/home', methods=['GET', 'POST'])
-# def home():
-#     with open("static/test.json") as op:
-#         players = json.load(op)
-#         df = pd.DataFrame.from_dict(players).T
-#         # df["news"] = ["\n".join(x) for x in df["news"]]
-#         html_df = df.to_html(index=False).replace('class="dataframe"','')
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    with open("static/test.json") as op:
+        players = json.load(op)
+        df = pd.DataFrame.from_dict(players).T
+        # df["news"] = ["\n".join(x) for x in df["news"]]
+        html_df = df.to_html(index=False).replace('class="dataframe"','')
         
-#     # return render_template('test.html', title="home",table=html_df)
-#     #within app.route add the html page we are doing changes to
-#     return render_template("test.html", column_names=df.columns.values, row_data=list(df.values.tolist()),
-#                            link_column="SCHEDA GIOCATORE",news="NEWS", zip=zip)
+    # return render_template('test.html', title="home",table=html_df)
+    #within app.route add the html page we are doing changes to
+    return render_template("test.html", column_names=df.columns.values, row_data=list(df.values.tolist()),
+                           link_column="SCHEDA GIOCATORE",news="NEWS", zip=zip)
 
 @app.route('/')
 def index():
