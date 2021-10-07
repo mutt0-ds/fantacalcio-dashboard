@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
-    with open("static/test.json") as op:
+    with open("app/static/test.json") as op:
         players = json.load(op)
         df = pd.DataFrame.from_dict(players).T
         # df["news"] = ["\n".join(x) for x in df["news"]]
