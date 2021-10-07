@@ -4,16 +4,6 @@ import json
 import pandas as pd
 app = Flask(__name__)
 
-
-# @app.route('/', methods=['GET', 'POST'])
-# def hello():
-#     # players = main()
-#     with open("static/test.json") as op:
-#         players = json.load(op)
-#     # testo = "<h1>Hello World!</h1><br><h2>My Team:</h2><br>"
-#     # testo+="<br>".join(list(players.keys()))
-#     return jsonify(players)
-
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     with open("app/static/test.json") as op:
