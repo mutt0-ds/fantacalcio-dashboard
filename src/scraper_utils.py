@@ -14,6 +14,7 @@ class Player:
     ruolo: str =""                                       #ruolo: P,D,C,A
     news: str =""                                        #totale menzioni da sos_fanta
     titolare: str =""                                    #status titolare
+    dati: str = ""                                       #gol e assist
     media_voto: float = 0.0                              #media voto
     media_fantavoto: float = 0.0                         #media fantavoto con bonus e malus
     scheda_giocatore: str=""                             #link a fantacalcio.it del giocatore
@@ -49,10 +50,23 @@ class Player:
         self.media_voto = float(soup.find_all(class_="nbig2")[0].text.replace(",","."))
         self.media_fantavoto = float(soup.find_all(class_="nbig2")[1].text.replace(",","."))
 
-        #leggo anche il ruolo dalla schedina delle info
+        #leggo anche il ruolodalla schedina delle info
         infos = soup.find_all(class_="col-lg-6 col-md-6 col-sm-12 col-xs-12")[-2]
         self.ruolo = str(infos.find("span").text)
+
+        #compilo i dati: partite, gol e assist 
+        dati_partite = soup.find_all(class_="nbig")
         
+        partite = "🥅 "+dati_partite[0].text+" Partite Giocate"
+        #i portieri hanno statistiche diverse!
+        if self.ruolo == "P":
+            goal = "❌ "+dati_partite[1].text+ " Goal Subiti"
+            self.dati = "<br>".join([partite, goal])
+        else:
+            goal = "⚽ "+dati_partite[1].text+ " Goal"
+            assist = "👟 "+dati_partite[2].text+" Assist"
+            self.dati = "<br>".join([partite, goal, assist])
+
         #aggiungo stellina al nome se hanno una bella media voto
         if self.media_fantavoto > 7:
             self.name +=" ⭐"
@@ -78,7 +92,7 @@ class Player:
         a partire dalle liste delle probabili formazioni,
          lo status (se gioca, è in ballottaggio, rotto, squalificato o fuori)
         """
-        titolari, tabella_ballottaggi, tabella_squalificati, tabella_indisponibili =liste_status[0],liste_status[1],liste_status[2],liste_status[3]
+        titolari, tabella_ballottaggi, tabella_squalificati, tabella_indisponibili,lista_scontri =liste_status
 
         if self.name in tabella_ballottaggi:
             #prima i ballottagi, essendo piu precisi
@@ -103,6 +117,14 @@ class Player:
         
         else: 
             self.titolare = "❌"
+
+        #aggiungo la squadra avversaria del giocatore per la prossima giornata
+        opponent = " VS "
+        for match in lista_scontri:
+            #se trova Juve nella stringa "JuveMilan" lo sostituisce con solo "Milan" e il totale sarà "VS Milan"
+            if self.team in match:
+                opponent += re.sub(self.team,"",match)
+        self.titolare+=opponent
     
 def scraper_lista_articoli(LINK_SOS_FANTA: str) -> list:
     """
@@ -156,15 +178,15 @@ def estrazione_articoli_da_leggere(LINK_SOS_FANTA: str):
         contenuto_articoli.append(testo)
     return contenuto_articoli
 
-def estrazione_formazioni(PROBABILI_FORMAZIONI: str) -> str:
+def estrazione_formazioni(PROBABILI_FORMAZIONI: str) -> list:
     """
-    estrae 4 stringhe di dati riguardanti titolari, ballottaggi, squalifiche e infortuni
+    estrae 5 stringhe di dati riguardanti titolari, ballottaggi, squalifiche e infortuni e gli scontri in programma
     """
     soup = BeautifulSoup(requests.get(PROBABILI_FORMAZIONI).text, 'html.parser')
 
     #prima i titolari
     titolari = ",".join([x.text for x in soup.find_all(class_="match-players__row")])
-        
+
     #ballottaggi, squalificati, indisponibili: molto spartano dato che è una lista senza id
     #devo prendere a 4 a 4 perchè è distribuita per squadra come ball, squal, indisp, diffidati
     tabelle =[x.text for x in soup.find_all(class_="match-info__list-item")]
@@ -173,7 +195,11 @@ def estrazione_formazioni(PROBABILI_FORMAZIONI: str) -> str:
     tabella_squalificati = ",".join([tabelle[x] for x in range(1, len(tabelle),4)])
     tabella_indisponibili = ",".join([tabelle[x] for x in range(2, len(tabelle),4)])
     
-    return titolari, tabella_ballottaggi, tabella_squalificati, tabella_indisponibili
+    #per finire estraggo gli scontri previsti e pulisco il dato (sarebbe tipo Genoa  Modulo 4-3-3 vs Juve Modulo 4-3-3 -> GenoaJuve)
+    match = soup.find_all(class_="match-likely__team-names")
+    lista_scontri = [re.sub("Modulo|VS|[ \n\d-]","",t.text) for t in match]
+
+    return [titolari, tabella_ballottaggi, tabella_squalificati, tabella_indisponibili,lista_scontri]
 
   
 

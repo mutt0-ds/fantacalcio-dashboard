@@ -17,7 +17,7 @@ table {
 td {
     color: #999;
     border: 1px solid #eee;
-    padding: 12px 35px;
+    padding: 12px 20px;
     border-collapse: collapse;
     vertical-align: middle;
   }
@@ -29,7 +29,7 @@ th {
     text-transform: uppercase;
     font-weight: bold;
     font-size: 15px;
-    padding: 12px 35px;
+    padding: 12px 20px;
   }
 
 .img_scheda{
@@ -43,15 +43,14 @@ th {
   font-size: 50px;
 }
 
-/* RESPONSIVE */
-/* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
-@media only screen and (max-width: 800px) {
-	/* Force table to not be like tables anymore */
+/* RESPONSIVE per cellulari in portrait mode (inclinando lo schermo torna ad essere una tabella)*/
+@media only screen and (max-width: 800px) and (orientation:portrait) {
+	/* forzo struttura non piu tabulare*/
 	table, thead, tbody, th, td, tr { 
 		display: block; 
 	}
 	
-	/* Hide table headers (but not display: none;, for accessibility) */
+	/* nascondo headers */
 	thead tr { 
 		position: absolute;
 		top: -9999px;
@@ -61,20 +60,15 @@ th {
 	tr { border: 1px solid #ccc; }
 	
 	td { 
-		/* Behave  like a "row" */
 		border: none;
 		border-bottom: 1px solid #eee; 
-		/* position: relative; */
 	}
 	
 	td:before { 
-		/* Now like a table header */
 		position: absolute;
-		/* Top/left values mimic padding */
 		top: 6px;
 		left: 6px;
 		width: 45%; 
-		/* padding-right: 10px;  */
 		white-space: nowrap;
 	}
 }
@@ -113,10 +107,10 @@ th {
     border-radius: 12px;
     background: linear-gradient(
       to left,
-      hsl(340deg 100% 16%) 0%,
-      hsl(340deg 100% 32%) 8%,
-      hsl(340deg 100% 32%) 92%,
-      hsl(340deg 100% 16%) 100%
+      hsl(190deg 100% 16%) 0%,
+      hsl(190deg 100% 32%) 8%,
+      hsl(190deg 100% 32%) 92%,
+      hsl(190deg 100% 16%) 100%
     );
   }
   .front {
@@ -126,7 +120,7 @@ th {
     border-radius: 12px;
     font-size: 0.8rem;
     color: white;
-    background: hsl(345deg 100% 47%);
+    background: hsl(180deg 100% 47%);
     will-change: transform;
     transform: translateY(-4px);
     transition:
