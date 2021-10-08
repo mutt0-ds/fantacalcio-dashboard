@@ -1,5 +1,6 @@
 import json
 import src.scraper_utils as utils
+import os
 
 def main():
     LINK_SOS_FANTA="https://sosfanta.calciomercato.com/category/chi-schierare/"
@@ -7,7 +8,7 @@ def main():
     LINK_FANTACALCIO_IT = "https://www.fantacalcio.it/squadre/"
 
     #lista_giocatori (è un dizionario vuoto)
-    data = json.load(open("../app/static/team.json")).get("players")
+    data = json.load(open(os.getcwd()+"/app/static/team.json")).get("players")
 
     contenuto_articoli= utils.estrazione_articoli_da_leggere(LINK_SOS_FANTA)
     liste_status =  utils.estrazione_formazioni(PROBABILI_FORMAZIONI)
@@ -25,7 +26,7 @@ def main():
     for key in dictio_finale:
         dictio_finale[key] = { k.replace('_', ' ').upper(): v for k, v in dictio_finale[key].items() }
 
-    with open('../app/static/test.json', 'w') as fp:
+    with open(os.getcwd()+'/app/static/test.json', 'w') as fp:
         json.dump(dictio_finale, fp)
 
     print("oplà")
