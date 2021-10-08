@@ -1,7 +1,8 @@
-from flask import Flask, jsonify,render_template, redirect, url_for, request
-# from src.scraper import main
+from flask import Flask, render_template
+
 import json
-import pandas as pd
+import pandas as pd# set configuration values
+
 app = Flask(__name__)
 
 @app.route('/home', methods=['GET', 'POST'])
@@ -19,14 +20,7 @@ def home():
 
 @app.route('/')
 def index():
-    return "<h1>Welcome to our server !!</h1>"
+    return "<h1>Server is Up</h1>"
 
 # if __name__ == '__main__':
 #     app.run(host="localhost", port=8000, debug=True)
-
-#TODO: https://stackoverflow.com/questions/52644035/how-to-show-a-pandas-dataframe-into-a-existing-flask-html-table
-
-# @app.route("/<major>/")
-# def major_res(major):
-#     course_list = list(client.db.course_col.find({"major": major.upper()}))
-#     return flask.jsonify(**course_list)
