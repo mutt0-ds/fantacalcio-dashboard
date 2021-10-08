@@ -21,7 +21,7 @@
         <tr>
             {% for col, row_ in zip(column_names, row) %}
          
-            {% if col == link_column %}
+            {% if col == button %}
             <td>
             <a href={{ row_ }}>
                 <button  class="pushable">
@@ -34,14 +34,15 @@
             </a>
             </td>
             
-            <!-- nel caso delle news devo poter andare a capo col <br>, lo disattivo temporaneamente -->
-            {% elif col == news %}
-            {% autoescape false %}
-            <td>{{row_ }}</td>    
-            {% endautoescape %}
-            
+            <!-- nel caso delle colonne news e dati devo poter andare a capo col <br>, lo disattivo temporaneamente -->
+            {% elif col in colonne_a_capo %}
+                {% autoescape false %}
+                <td class="dati-a-capo">{{row_ }}</td>    
+                {% endautoescape %}
+
             {% else %}
             <td>{{row_}}</td>
+               
             {% endif %}
             {% endfor %}
         </tr>

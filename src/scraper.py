@@ -1,5 +1,5 @@
 import json
-import scraper_utils as utils
+import src.scraper_utils as utils
 
 def main():
     path = "M:/Davide M/Esperimenti/ScraperFa/"

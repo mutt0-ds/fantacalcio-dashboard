@@ -17,7 +17,7 @@ table {
 td {
     color: #999;
     border: 1px solid #eee;
-    padding: 12px 20px;
+    padding: 10px 15px;
     border-collapse: collapse;
     vertical-align: middle;
   }
@@ -29,14 +29,12 @@ th {
     text-transform: uppercase;
     font-weight: bold;
     font-size: 15px;
-    padding: 12px 20px;
+    padding: 10px 15px;
   }
 
-.img_scheda{
-  width: 20%;
-  height: 20%;
-  margin: 0px 0px;
-  display: block;
+.dati-a-capo{
+  min-width: 45px;
+  max-width: 500px;
 }
 
 .main-title{

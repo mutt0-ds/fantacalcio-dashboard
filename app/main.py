@@ -15,14 +15,14 @@ def home():
     # return render_template('test.html', title="home",table=html_df)
     #within app.route add the html page we are doing changes to
     return render_template("test.html", column_names=df.columns.values, row_data=list(df.values.tolist()),
-                           link_column="SCHEDA GIOCATORE",news="NEWS", zip=zip)
+                           button="SCHEDA GIOCATORE",colonne_a_capo=["NEWS","DATI"], zip=zip)
 
 @app.route('/')
 def index():
     return "<h1>Welcome to our server !!</h1>"
 
-if __name__ == '__main__':
-    app.run(host="localhost", port=8000, debug=True)
+# if __name__ == '__main__':
+#     app.run(host="localhost", port=8000, debug=True)
 
 #TODO: https://stackoverflow.com/questions/52644035/how-to-show-a-pandas-dataframe-into-a-existing-flask-html-table
 

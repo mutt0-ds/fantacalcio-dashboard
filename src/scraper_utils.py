@@ -57,14 +57,14 @@ class Player:
         #compilo i dati: partite, gol e assist 
         dati_partite = soup.find_all(class_="nbig")
         
-        partite = "🥅 "+dati_partite[0].text+" Partite Giocate"
+        partite = "🥅 "+dati_partite[0].text
         #i portieri hanno statistiche diverse!
         if self.ruolo == "P":
-            goal = "❌ "+dati_partite[1].text+ " Goal Subiti"
+            goal = "❌ "+dati_partite[1].text
             self.dati = "<br>".join([partite, goal])
         else:
-            goal = "⚽ "+dati_partite[1].text+ " Goal"
-            assist = "👟 "+dati_partite[2].text+" Assist"
+            goal = "⚽ "+dati_partite[1].text
+            assist = "👟 "+dati_partite[2].text
             self.dati = "<br>".join([partite, goal, assist])
 
         #aggiungo stellina al nome se hanno una bella media voto
@@ -143,7 +143,7 @@ def scraper_lista_articoli(LINK_SOS_FANTA: str) -> list:
         parsed_data = dateparser.parse(data_pubblicazione, languages=["it"]) 
 
         #solo ultimi 3 giorni, se ne trovo uno vecchio esco
-        if parsed_data < datetime.now()-timedelta(days=6):
+        if parsed_data < datetime.now()-timedelta(days=9):
             return to_scrape
 
         #aggiungo link
