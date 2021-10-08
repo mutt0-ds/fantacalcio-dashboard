@@ -9,7 +9,7 @@ scheduler.init_app(app)
 scheduler.start()
 
 # interval example
-@scheduler.task('interval', id='refresh_dati', seconds=30, misfire_grace_time=900)
+@scheduler.task('interval', id='refresh_dati', seconds=720, misfire_grace_time=900)
 def refresh_dati():
     print('Aggiorno i dati...')
     scraper.main()
