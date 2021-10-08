@@ -4,3 +4,5 @@ dateparser==1.0.0
 Flask==1.1.2
 gunicorn==19.10.0
 pandas==1.2.2
+requests==2.25.1
+dateparser==1.0.0
