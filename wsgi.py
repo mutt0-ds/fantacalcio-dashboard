@@ -8,12 +8,13 @@ scheduler.api_enabled = True
 scheduler.init_app(app)
 scheduler.start()
 
-# interval example
-@scheduler.task('interval', id='refresh_dati', seconds=720, misfire_grace_time=900)
+# refresh dello scraper ogni ora
+@scheduler.task("interval", id="refresh_dati", seconds=360, misfire_grace_time=900)
 def refresh_dati():
-    print('Aggiorno i dati...')
+    print("Aggiorno i dati...")
     scraper.main()
-    print('Scraper aggiornato.')
+    print("Scraper aggiornato.")
 
-if __name__ == '__main__':
-    app.run(port= 8000, debug=True)
+
+if __name__ == "__main__":
+    app.run(port=8000, debug=True)
