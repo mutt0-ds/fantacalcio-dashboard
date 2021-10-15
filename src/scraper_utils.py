@@ -142,8 +142,8 @@ def scraper_lista_articoli(LINK_SOS_FANTA: str) -> list:
         data_pubblicazione = post.find(class_="post-meta").text.replace("del","").replace("alle","")
         parsed_data = dateparser.parse(data_pubblicazione, languages=["it"]) 
 
-        #solo ultimi 3 giorni, se ne trovo uno vecchio esco
-        if parsed_data < datetime.now()-timedelta(days=9):
+        #solo ultimi 3 giorni, se ne trovo uno vecchio esco dal loop
+        if parsed_data < datetime.now()-timedelta(days=3):
             return to_scrape
 
         #aggiungo link
