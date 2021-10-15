@@ -14,7 +14,8 @@ def refresh_dati():
     print("Aggiorno i dati...")
     scraper.main()
     print("Scraper aggiornato.")
-
+    app.run(port=8000, debug=True)
+    print("Dashboard aggiornata aggiornato.")
 
 if __name__ == "__main__":
     app.run(port=8000, debug=True)
