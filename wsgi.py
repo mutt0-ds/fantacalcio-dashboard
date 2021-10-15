@@ -9,13 +9,11 @@ scheduler.init_app(app)
 scheduler.start()
 
 # refresh dello scraper ogni ora
-@scheduler.task("interval", id="refresh_dati", seconds=20, misfire_grace_time=900)
+@scheduler.task("interval", id="refresh_dati", seconds=360, misfire_grace_time=900)
 def refresh_dati():
     print("Aggiorno i dati...")
     scraper.main()
     print("Scraper aggiornato.")
-    app.run(port=8000, debug=True)
-    print("Dashboard aggiornata aggiornato.")
 
 if __name__ == "__main__":
     app.run(port=8000, debug=True)
