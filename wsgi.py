@@ -16,5 +16,4 @@ def refresh_dati():
     print('Scraper aggiornato.')
 
 if __name__ == '__main__':
-    scraper.main()
-    # app.run(port= 8000, debug=True)
+    app.run(port= 8000, debug=True)
